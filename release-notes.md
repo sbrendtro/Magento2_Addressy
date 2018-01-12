@@ -1,5 +1,11 @@
 # Release notes
 
+## v2.0.5
+
+- Fix "order is not defined" error
+- Check for PCA object existence on checkout
+- Supports PHP 7.1 for composer installations
+
 ## v2.0.4
 
 - Some site configurations show a bug where settings would not save. Look up the settings endpoint correctly using magento template framework.
