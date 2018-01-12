@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="PCAPredict_Addressy::Settings" 
+            title="Addressy Settings" 
+            module="PCAPredict_Addressy" 
+            sortOrder="100" 
+            parent="Magento_Backend::other_settings" 
+            action="addressy/settings" 
+            resource="PCAPredict_Addressy::Settings"/>
+    </menu>
+</config>

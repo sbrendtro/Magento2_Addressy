@@ -1,0 +1,442 @@
+<?php
+
+    /** @var $block \Magento\Backend\Block\Template */
+
+    $pcaSettings = $this->helper('PCAPredict\Addressy\Helper\SettingsData');
+    $pcaAccCode = $pcaSettings->getAccountCode();
+    $pcaEmail = $pcaSettings->getEmailAddress();
+    $pcaToken = $pcaSettings->getAccountToken();
+    $pcaCustomJSFront = $pcaSettings->getCustomJavaScriptFront();
+    $pcaCustomJSBack = $pcaSettings->getCustomJavaScriptBack();
+
+?>
+
+
+<div class="addressy-container">
+
+    <div class="addressy-message-container">
+        <div class="addressy-message addressy-message-error">
+            
+        </div>
+    </div>
+
+    <?php
+    if ($pcaAccCode) : ?>
+
+        <div class="secure-container info-container" style="display: block;">        
+
+            <form id="formLogOut" onsubmit="return false;">
+
+                <fieldset>
+                    <h3>Account Information</h3>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label><b>Email Address</b></label>
+                        </div>
+                        <div class="col-xs-5">
+                            <label><?php echo $pcaEmail; ?></label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label><b>Account Code</b></label>
+                        </div>
+                        <div class="col-xs-5">
+                            <label><?php echo strtoupper($pcaAccCode); ?></label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display:none;">
+                        <div class="col-xs-12">
+                            <label><?php echo $pcaToken; ?></label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 25px;">
+                        <button id="btnLogOut" type="submit" form="formLogOut" value="Log Out">Log out</button>
+                    </div>
+                </fieldset>
+            </form>            
+        </div>
+
+        <div class="secure-container settings-container" style="display: block;">        
+            <form id="formSettings" onsubmit="return false;">
+                <fieldset>
+                    <h3>Other Settings</h3>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>Front-end custom JavaScript</label>
+                        </div>
+                        <div class="col-xs-5">
+                            <textarea name="customjavascript_front" id="customjavascript_front"><?php echo $pcaCustomJSFront; ?></textarea>
+                        </div>
+                        <div class="col-xs-4">             
+                            <comment>Paste any custom JavaScript code that you have in here.</comment>
+                            <comment>This will execute on the store site the customer sees.</comment>
+                            <comment><b>Note:</b> It is recommended to clear the site cache if any changes are made here.</comment>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>Back-end custom JavaScript</label>
+                        </div>
+                        <div class="col-xs-5">
+                            <textarea name="customjavascript_back" id="customjavascript_back"><?php echo $pcaCustomJSBack; ?></textarea>
+                        </div>
+                        <div class="col-xs-4">             
+                            <comment>Paste any custom JavaScript code that you have in here.</comment>
+                            <comment>This will execute on the admin area of the site.</comment>
+                            <comment><b>Note:</b> It is recommended to clear the site cache if any changes are made here.</comment>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-3">
+                        </div>
+                        <div class="col-xs-9">
+                            <span>You can visit your account section at <a href="https://www.addressy.com/Account/" target="_blank">https://www.addressy.com/Account/</a> for other settings.</span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 25px;">
+                        <div class="col-xs-3">
+                            <button id="btnSave" type="submit" form="formSettings" value="Save">Save</button>
+                        </div>
+                        <div class="col-xs-9" style="height:50px;">
+                            <div style="right:0; bottom:0; position:absolute; font-size:11px;">v2.0.4</div>
+                        </div>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </div>
+
+    <?php else : ?>
+
+
+        <div class="secure-container login-container" style="display: block;">
+            
+            <form id="formLogIn" onsubmit="return false;">
+                <fieldset>
+                    <h3>Log in to Addressy</h3>
+                    <p>You need an Addressy account in order to use this extension.</p>
+                    <p>If you don't have an Addressy account, you can <a href="https://www.addressy.com/register/" target="_blank">register for free</a> at our website.</p>
+                    <p>&nbsp;</p>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>Email Address</label>
+                        </div>
+                        <div class="col-xs-5">
+                            <input type="text" name="emailAddress" id="emailAddress" placeholder="Email Address" data-cip-id="emailAddress">
+                        </div>
+                        <div class="col-xs-4">             
+                            <comment></comment>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label>Password</label>
+                        </div>
+                        <div class="col-xs-5">
+                            <input type="password" name="password" id="password" placeholder="Password" data-cip-id="password">
+                        </div>
+                        <div class="col-xs-4">             
+                            <comment></comment>
+                        </div>                    
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <label></label>
+                        </div>
+                        <div class="col-xs-5">
+                            <button id="btnLogIn" type="submit" form="formLogIn" value="Log in">Log in</button>
+                        </div>                    
+                    </div> 
+
+                    <div style="margin-top: 25px;" class="secure-container-footer">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="https://www.addressy.com/Password/" class="addressy-lnk-show-forgotten" target="_blank">Forgotten your password?</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <div style="float:right; font-size:11px;">v2.0.4</div>
+                            </div>
+                        </div>
+                    </div>           
+                </fieldset>
+            </form>   
+        </div>
+
+    <?php endif; ?>
+
+    <script type="text/javascript">
+
+        requirejs(['jquery'], function(jQuery){
+
+            (function($){
+
+                var initCodeFront = null;
+                var initCodeBack = null;
+                
+                $('#formSettings').on('submit', function(){
+                    $('#btnSave').addClass('working');  
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo $block->getUrl('addressy/settings'); ?>',
+                        showLoader: true,                  
+                        data: { 
+                            "form_key": window.FORM_KEY,
+                            "action": 'save',
+                            "email_address": "<?php echo $pcaEmail; ?>",
+                            "account_code": "<?php echo $pcaAccCode; ?>",
+                            "account_token": "<?php echo $pcaToken; ?>",
+                            "custom_javascript_front": $('#customjavascript_front').val(),
+                            "custom_javascript_back": $('#customjavascript_back').val()
+                        }
+                    })
+                    .done(function(result){
+                        resetSaveButton();
+                        $('.addressy-message')
+                            .text('Your settings were saved.')
+                            .addClass('addressy-message-success')
+                            .slideDown(500, function(){
+                                hidePCAMessage(5000, 500);
+                            });                      
+                    })
+                    .fail(function(result){
+                        $('.addressy-message')
+                            .text('Sorry, there was a problem saving the settings.')
+                            .addClass('addressy-message-error')
+                            .slideDown(500, function(){
+                                hidePCAMessage(5000, 500);
+                            });
+                    })
+                    .always(function(){
+                        $('#btnSave').removeClass('working'); 
+                    });
+                });
+
+                $('#formLogIn').on('submit', function(){ 
+                    $('#btnLogIn').addClass('working');
+                    $.ajax({
+                        showLoader: true,
+                        type: 'POST',
+                        url: 'https://app_api.pcapredict.com/api/authToken',
+                        processData: false,
+                        contentType: 'application/json',
+                        data: JSON.stringify({ 
+                            "email": $('#emailAddress').val(), 
+                            "password": $('#password').val(), 
+                            "deviceDescription": 'Magento 2 | ' + window.location.hostname,
+                            "deviceType": 1,
+                            "brand": "Addressy"
+                        })
+                    })
+                    .done(function(result){
+
+                        if(console && console.log) console.log(result);
+                    
+                        if(result.accounts && Object.keys(result.accounts).length > 0) {
+
+                            var token = result.token.token;
+
+                            var email = result.token.email;
+
+                            var accountCode = Object.keys(result.accounts)[0];
+
+                            var auth = btoa(accountCode + ':' + token);
+
+                            $.ajax({
+                                showLoader: true,
+                                type: 'POST',
+                                url: 'https://app_api.pcapredict.com/api/apps/magento/2/0.0.1/licences',
+                                processData: false,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Basic ' + auth
+                                },
+                                data : JSON.stringify({
+                                    "generatePhone" : "false",
+                                    "generateEmail" : "false"
+                                })
+                            })
+                            .done(function(result){
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '<?php echo $block->getUrl('addressy/login'); ?>',
+                                    showLoader: true,                  
+                                    data: { 
+                                        "form_key": window.FORM_KEY,
+                                        "email_address" : email,
+                                        "account_code": accountCode,
+                                        "account_token": token
+                                    }
+                                })
+                                .done(function(result){
+                                    if(result.success) {
+
+                                    }
+                                    else {
+                                        $('.addressy-message')
+                                            .text('The magento store has reported that there was a problem saving the login data.')
+                                            .addClass('addressy-message-error')
+                                            .slideDown(500, function(){
+                                                hidePCAMessage(5000, 500);
+                                            });
+                                    }                                                                
+                                })
+                                .fail(function(result){
+                                    $('.addressy-message')
+                                        .text('Sorry, there was a problem saving your login data to the magento store.')
+                                        .addClass('addressy-message-error')
+                                        .slideDown(500, function(){
+                                            hidePCAMessage(5000, 500);
+                                        });
+                                })
+                                .always(function(){
+                                    window.location.reload(true);
+                                });
+                            })
+                            .fail(function(result){
+                                $('.addressy-message')
+                                    .text('Sorry, there was a problem creating your keys. Please email support@addressy.com')
+                                    .addClass('addressy-message-error')
+                                    .slideDown(500, function(){
+                                        hidePCAMessage(5000, 500);
+                                    });
+                            });
+                        } else {
+                            $('.addressy-message')
+                                    .text('Sorry, there is an error with the response from authentication. Please email support@addressy.com')
+                                    .addClass('addressy-message-error')
+                                    .slideDown(500, function(){
+                                        hidePCAMessage(5000, 500);
+                                    });
+                        }
+                    })
+                    .fail(function(result){
+                        $('#btnLogIn').removeClass('working'); 
+                        $('#accountCode').val("");
+                        $('#password').val("");
+                        $('.addressy-message')
+                            .text('Sorry, your account code or password was not recognized. Please try again.')
+                            .addClass('addressy-message-error')
+                            .slideDown(500, function(){
+                                hidePCAMessage(10000, 1000);
+                            });
+
+                    })
+                    .always(function(){
+                        $('#btnLogIn').removeClass('working'); 
+                    });
+                });
+
+                $('#formLogOut').on('submit', function(){
+                    $('#btnLogOut').addClass('working');
+
+                    var accountCode = "<?php echo $pcaAccCode; ?>";
+                    var token = "<?php echo $pcaToken; ?>";
+                    var auth = btoa(accountCode + ':' + token);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo $block->getUrl('addressy/settings'); ?>',
+                        showLoader: true,                    
+                        data: { 
+                            "form_key": window.FORM_KEY,
+                            "action": 'logout'
+                        }
+                    })
+                    .done(function(result){
+                        $.ajax({
+                            showLoader: true,
+                            type: 'DELETE',
+                            url: 'https://app_api.pcapredict.com/api/authtoken',
+                            processData: false,
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Basic ' + auth
+                            }
+                        })
+                        .done(function(result) {
+                            // done, reload view.
+                            if(console && console.log) console.log("Logged out successfully");
+
+                            window.location.reload(true);
+                        })
+                        .fail(function(result){
+                            // Not ideal but we have logged out now in magento.
+                            if(console && console.log) console.log("Error logging out");
+
+                            window.location.reload(true);
+                        })
+                    })
+                    .fail(function(result){
+                        $('.addressy-message')
+                            .text('Sorry, there was a problem logging out from your PCA Predict account within magento.')
+                            .addClass('addressy-message-error')
+                            .slideDown(500, function(){
+                                hidePCAMessage(5000, 500);
+                            });
+                    })
+                    .always(function(){
+                        hidePCAMessage(5000, 500);
+                    });
+                });
+
+                $('#customjavascript_front').bind('input propertychange', function() {
+                    if ((initCodeFront == $('#customjavascript_front')[0].value) && (initCodeBack == $('#customjavascript_back')[0].value)){
+                        resetSaveButton();
+                    } else {
+                        $('#btnSave').prop('disabled', false);
+                        $('#btnSave').removeClass('button-light');
+                        $('#btnSave').addClass('button-dark');
+                    }
+                });
+
+                $('#customjavascript_back').bind('input propertychange', function() {
+                    if ((initCodeFront == $('#customjavascript_front')[0].value) && (initCodeBack == $('#customjavascript_back')[0].value)){
+                        resetSaveButton();
+                    } else {
+                        $('#btnSave').prop('disabled', false);
+                        $('#btnSave').removeClass('button-light');
+                        $('#btnSave').addClass('button-dark');
+                    }
+                });
+
+                var resetSaveButton = function() {
+                    $('#btnSave').prop('disabled', true);
+                    $('#btnSave').addClass('button-light');
+                    $('#btnSave').removeClass('button-dark');
+                    
+                    if ($('#customjavascript_front')[0] != undefined) {
+                        initCodeFront = $('#customjavascript_front')[0].value;
+                    }
+
+                    if ($('#customjavascript_back')[0] != undefined) {
+                        initCodeBack = $('#customjavascript_back')[0].value;
+                    }
+                }
+
+                var hidePCAMessage = function(delayMs, animateTime) {
+                    delayMs = delayMs || 0;
+                    animateTime = animateTime || 0;
+                    setTimeout(function(){
+                        $('.addressy-message').slideUp(animateTime);
+                    }, delayMs);
+                }
+
+                resetSaveButton();
+
+            })(jQuery);
+
+        });
+            
+            
+    </script>
+</div>
+
