@@ -1,10 +1,10 @@
 {
-    "name": "pcapredict/addressy",
+    "name": "sbrendtro/addressy",
     "description": "Address Validation for Checkout Forms",
     "repositories": {
     },
     "require": {
-        "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0"
+        "php": "~5.5.0|~5.6.0|~7.0.0|~7.1.0|~7.2.0"
     },
     "autoload": {
         "psr-4": {
